@@ -14,8 +14,5 @@ public class LoginVO implements Serializable {
     private String password;
     private Boolean autoLogin;
     private Integer accountType;
-    private String roleName;
-    private String realName;
-    private Integer accountStatus;
 
 }

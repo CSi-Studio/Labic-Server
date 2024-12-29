@@ -1,5 +1,7 @@
 package net.csibio.labic.config;
 
+import cn.dev33.satoken.interceptor.SaInterceptor;
+import cn.dev33.satoken.stp.StpUtil;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -10,7 +12,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
-     * 跨域脚本规则,仅允许来自Aliyun 指定OSS文件可以访问
+     * 跨域脚本规则
      *
      * @param registry
      */
@@ -19,7 +21,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //				registry.addMapping("/api/**");
         registry.addMapping("/**")
                 .allowedOrigins("*")
-                .allowedHeaders("*")
+                .allowedHeaders("*") //x-requested-with,satoken
                 .allowedMethods("GET", "POST", "DELETE", "PUT", "OPTIONS")
                 .allowCredentials(false).maxAge(3600);
     }
@@ -29,6 +31,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
         LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
         interceptor.setParamName("lang");
         registry.addInterceptor(interceptor);
+
+        // 注册 Sa-Token 拦截器，校验规则为 StpUtil.checkLogin() 登录校验。
+        registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin()))
+                .addPathPatterns("/**")
+                .excludePathPatterns("/login/login")
+                .excludePathPatterns("/login/init");
     }
 
 }

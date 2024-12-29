@@ -1,6 +1,5 @@
 package net.csibio.labic.Components;
 
-import net.csibio.labic.constants.GlobalConstants;
 import net.csibio.labic.domain.bean.common.BaseMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,18 +17,6 @@ public class RedisManager {
 
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
-
-    /**
-     * 发送消息
-     *
-     * @param handlerName
-     * @param params
-     */
-    public void sendMessage(String handlerName, BaseMap params) {
-        params.put(GlobalConstants.HANDLER_NAME, handlerName);
-        redisTemplate.convertAndSend(GlobalConstants.REDIS_TOPIC_NAME, params);
-    }
-
 
     /**
      * 指定缓存失效时间

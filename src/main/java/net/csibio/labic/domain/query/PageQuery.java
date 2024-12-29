@@ -2,7 +2,7 @@ package net.csibio.labic.domain.query;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import net.csibio.labic.constants.Constants;
+import net.csibio.labic.constants.SymbolConst;
 import org.springframework.data.domain.Sort;
 
 import java.io.Serializable;
@@ -127,10 +127,10 @@ public class PageQuery implements Serializable {
             this.setOrderBy(Sort.Direction.DESC);
         }
 
-        if (!sorters[0].contains(Constants.COMMA)) {
+        if (!sorters[0].contains(SymbolConst.COMMA)) {
             this.sortColumn = sorters[0];
         } else {
-            this.sortColumn = sorters[0].replace(Constants.COMMA, Constants.DOT);
+            this.sortColumn = sorters[0].replace(SymbolConst.COMMA, SymbolConst.DOT);
         }
     }
 }

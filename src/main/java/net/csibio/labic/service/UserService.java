@@ -1,5 +1,6 @@
 package net.csibio.labic.service;
 
+import cn.dev33.satoken.stp.StpUtil;
 import net.csibio.labic.domain.Result;
 import net.csibio.labic.domain.db.UserDO;
 import net.csibio.labic.enums.ResultCode;
@@ -29,7 +30,7 @@ public class UserService {
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public Result login(String username, String password) {
-        UserDO user = userRepository.findByUsername(username);
+        UserDO user = userRepository.findUserDOByUsername(username);
         if (user == null) {
             return Result.Error(ResultCode.USERNAME_OR_PASSWORD_ERROR);
         }
@@ -38,7 +39,7 @@ public class UserService {
             return Result.Error(ResultCode.ACCOUNT_LOCKED);
         }
 
-        if (!passwordEncoder.matches(password, user.getPassword()+user.getSalt())) {
+        if (!passwordEncoder.matches(password + user.getSalt(), user.getPassword())) {
             int errorCount = incrementErrorCount(username);
             if (errorCount >= MAX_ERROR_COUNT) {
                 lockAccount(username);
@@ -48,6 +49,7 @@ public class UserService {
         }
 
         clearErrorCount(username);
+        StpUtil.login(user.getId());
         return Result.OK();
     }
 
@@ -58,7 +60,7 @@ public class UserService {
 
         String salt = generateSalt(6);
         user.setSalt(salt);
-        user.setPassword(passwordEncoder.encode(user.getPassword()+user.getSalt()));
+        user.setPassword(passwordEncoder.encode(user.getPassword() + user.getSalt()));
         userRepository.save(user);
         return Result.OK();
     }

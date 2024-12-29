@@ -23,14 +23,4 @@ public class SymbolConst {
     public static final CharSequence T = "T";
     public static final Object OMIT = "...";
     public static final String CUT_OFF =  COMMA + COLON;
-
-    public static final String A = "A";
-    public static final String B = "B";
-    public static final String C = "C";
-    public static final String D = "D";
-    public static final String E = "E";
-    public static final String F = "F";
-    public static final String G = "G";
-    public static final String H = "H";
-    public static final String WAVE = "~";
 }

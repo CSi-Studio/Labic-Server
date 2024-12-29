@@ -2,8 +2,7 @@ package net.csibio.labic.domain.db;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import net.csibio.labic.constants.BaseConstants;
-import net.csibio.labic.constants.UserConstant;
+import net.csibio.labic.constants.Sex;
 import net.csibio.labic.domain.BaseDO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -50,7 +49,7 @@ public class UserDO extends BaseDO {
      * 性别
      */
     @Indexed
-    Integer sex = UserConstant.SEX_UNSET;
+    Integer sex = Sex.UNSET;
 
     String salt;
 
