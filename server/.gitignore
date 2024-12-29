@@ -1,8 +1,0 @@
-*.class
-*.iml
-/.idea/
-/server/target/
-*.log
-*.gz
-/src/main/resources/META-INF/
-/src/main/resources/static/
