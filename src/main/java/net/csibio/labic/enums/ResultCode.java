@@ -82,20 +82,15 @@ public enum ResultCode implements Serializable {
     private String message = "";
 
     /**
-     * @param code
-     * @param message
+     * @param code 错误码
+     * @param message 错误信息
      */
     ResultCode(String code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message + "(" + code + ")";
-    }
+    public String getCode() {return code;}
+    public String getMessage() {return message;}
 
 }

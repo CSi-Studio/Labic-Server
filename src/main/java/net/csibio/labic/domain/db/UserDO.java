@@ -4,11 +4,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import net.csibio.labic.constants.Sex;
 import net.csibio.labic.domain.BaseDO;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.redis.core.index.Indexed;
 
 import java.util.Date;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -29,17 +32,6 @@ public class UserDO extends BaseDO {
     String username;
 
     /**
-     * 真实姓名
-     */
-    @Indexed
-    String realName;
-
-    /**
-     * 密码
-     */
-    String password;
-
-    /**
      * 手机号（登录使用）
      */
     @Indexed
@@ -49,8 +41,86 @@ public class UserDO extends BaseDO {
      * 性别
      */
     @Indexed
-    Integer sex = Sex.UNSET;
+    String sex = Sex.Unset;
 
+    /**
+     * 主要称呼
+     */
+    @Indexed
+    String name;
+
+    /**
+     * 次要称呼
+     */
+    @Indexed
+    String alias;
+
+    /**
+     * 代号
+     */
+    @Indexed
+    String code;
+
+    /**
+     * 主要主管ID
+     */
+    @Indexed
+    String mainBossId;
+
+    /**
+     * 主要主管名字
+     */
+    String mainBossName;
+
+    /**
+     * 次要主管ID
+     */
+    @Indexed
+    String minorBossId;
+
+    /**
+     * 次要主管名字
+     */
+    String minorBossName;
+
+    /**
+     * 邮箱
+     */
+    String email;
+
+    /**
+     * orcid
+     */
+    String orcid;
+
+    /**
+     * 个人网站
+     */
+    String personalUrl;
+
+    /**
+     * 个人Github
+     */
+    String github;
+
+    /**
+     * 身份证号码
+     */
+    String idNumber;
+
+    /**
+     * 护照号码
+     */
+    String passportNumber;
+
+    /**
+     * 密码
+     */
+    String password;
+
+    /**
+     * 加密用盐
+     */
     String salt;
 
     /**
@@ -66,24 +136,31 @@ public class UserDO extends BaseDO {
     /**
      * 职称
      */
-    String title;
+    String jobTitle;
 
     /**
      * 钉钉id
      */
-    String ddId;
+    String dingtalk;
 
     /**
      * 微信id
      */
-    String wxId;
+    String wechat;
 
     /**
-     * 描述
+     * 标签
+     */
+    List<String> tags;
+
+    /**
+     * 个人简介
      */
     String description;
 
+    @CreatedDate
     Date createDate;
 
+    @LastModifiedDate
     Date lastModifiedDate;
 }

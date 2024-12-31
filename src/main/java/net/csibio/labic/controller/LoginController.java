@@ -1,10 +1,13 @@
 package net.csibio.labic.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
-import cn.dev33.satoken.util.SaResult;
+import net.csibio.labic.constants.Role;
 import net.csibio.labic.domain.Result;
 import net.csibio.labic.domain.db.UserDO;
 import net.csibio.labic.domain.vo.LoginVO;
+import net.csibio.labic.enums.ResultCode;
+import net.csibio.labic.repository.UserRepository;
+import net.csibio.labic.service.LoginService;
 import net.csibio.labic.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +17,28 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 
     @Autowired
-    private UserService userService;
+    private LoginService loginService;
+
+    @Autowired
+    UserRepository userRepository;
 
     @PostMapping("/login")
     public Result login(@RequestBody LoginVO login) {
-        return userService.login(login.getUsername(), login.getPassword());
+        return loginService.login(login);
+    }
+
+    @GetMapping("/currentUser")
+    public Result currentUser() {
+        try {
+            String userId = StpUtil.getLoginIdAsString();
+            UserDO user = userRepository.findById(userId).orElse(null);
+            if (user == null) {
+                return Result.Error(ResultCode.USER_NOT_EXISTED);
+            }
+            return Result.OK(user);
+        } catch (Exception e) {
+            return Result.Error(ResultCode.USER_NOT_EXISTED);
+        }
     }
 
     @PostMapping("/logout")
@@ -38,12 +58,13 @@ public class LoginController {
     }
 
     @RequestMapping("/init")
-    public Result init(){
-        System.out.println("Hello World");
+    public Result init() {
         UserDO user = new UserDO();
         user.setUsername("admin");
+        user.setName("admin");
         user.setPassword("admin");
-        userService.register(user);
+        user.setRole(Role.Admin);
+        loginService.register(user);
         return Result.OK();
     }
 }

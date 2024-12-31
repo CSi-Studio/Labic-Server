@@ -1,6 +1,7 @@
 package net.csibio.labic.domain;
 
 import net.csibio.labic.enums.ResultCode;
+import org.springframework.data.domain.Page;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -58,6 +59,15 @@ public class Result<T> implements Serializable {
         Result<T> r = new Result<T>();
         r.setSuccess(true);
         r.setData(model);
+        return r;
+    }
+
+    public static <T> Result<T> OK(T model, int currentPage, int totalPages) {
+        Result<T> r = new Result<T>();
+        r.setSuccess(true);
+        r.setData(model);
+        r.setPage(currentPage);
+        r.setTotal(totalPages);
         return r;
     }
 

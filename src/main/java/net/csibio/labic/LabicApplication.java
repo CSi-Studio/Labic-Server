@@ -25,6 +25,7 @@ import java.net.UnknownHostException;
 @EnableScheduling
 @EnableAspectJAutoProxy
 @Slf4j
+//@ComponentScan(basePackages = {"cn.dev33.satoken"})
 public class LabicApplication {
 
     public static void main(String[] args) throws UnknownHostException {
