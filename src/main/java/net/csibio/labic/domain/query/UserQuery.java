@@ -17,5 +17,4 @@ public class UserQuery extends PageQuery {
     String realName;
     String phone;
     Integer sex;
-
 }

@@ -1,9 +1,9 @@
 package net.csibio.labic.repository;
 
-import net.csibio.labic.domain.db.UserDO;
+import net.csibio.labic.domain.db.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface UserRepository extends MongoRepository<UserDO, String> {
-    UserDO findByUsername(String username);
+public interface UserRepository extends MongoRepository<User, String> {
+    User findByUsername(String username);
 
 }

@@ -3,12 +3,11 @@ package net.csibio.labic.controller;
 import cn.dev33.satoken.stp.StpUtil;
 import net.csibio.labic.constants.Role;
 import net.csibio.labic.domain.Result;
-import net.csibio.labic.domain.db.UserDO;
+import net.csibio.labic.domain.db.User;
 import net.csibio.labic.domain.vo.LoginVO;
 import net.csibio.labic.enums.ResultCode;
 import net.csibio.labic.repository.UserRepository;
 import net.csibio.labic.service.LoginService;
-import net.csibio.labic.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +32,7 @@ public class LoginController {
     public Result currentUser() {
         try {
             String userId = StpUtil.getLoginIdAsString();
-            UserDO user = userRepository.findById(userId).orElse(null);
+            User user = userRepository.findById(userId).orElse(null);
             if (user == null) {
                 return Result.Error(ResultCode.USER_NOT_EXISTED);
             }
@@ -61,7 +60,7 @@ public class LoginController {
 
     @RequestMapping("/init")
     public Result init() {
-        UserDO user = new UserDO();
+        User user = new User();
         user.setUsername("admin");
         user.setName("admin");
         user.setPassword("admin");

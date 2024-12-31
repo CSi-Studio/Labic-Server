@@ -81,6 +81,13 @@
             <artifactId>commons-pool2</artifactId>
         </dependency>
 
+        <!--Bibtex解析器-->
+        <dependency>
+            <groupId>org.jbibtex</groupId>
+            <artifactId>jbibtex</artifactId>
+            <version>1.0.20</version>
+        </dependency>
+
         <!--java验证框架-->
         <dependency>
             <groupId>javax.validation</groupId>

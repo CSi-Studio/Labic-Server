@@ -16,8 +16,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Document("user")
-public class UserDO extends BaseDO {
-    private static final long serialVersionUID = 1L;
+public class User extends BaseDO {
 
     /**
      * 主键

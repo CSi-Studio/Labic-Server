@@ -1,7 +1,7 @@
 package net.csibio.labic.controller;
 
 import net.csibio.labic.domain.Result;
-import net.csibio.labic.domain.db.UserDO;
+import net.csibio.labic.domain.db.User;
 import net.csibio.labic.domain.query.UserQuery;
 import net.csibio.labic.domain.vo.UserVO;
 import net.csibio.labic.enums.ResultCode;
@@ -28,19 +28,19 @@ public class UserController {
     @RequestMapping(value = "/list")
     Result list(UserQuery query) {
         Pageable pageable = PageRequest.of(query.getCurrent() - 1, query.getPageSize());
-        Page<UserDO> userPage = userRepository.findAll(pageable);
+        Page<User> userPage = userRepository.findAll(pageable);
         return Result.OK(userPage.getContent(), userPage.getNumber(), userPage.getTotalPages());
     }
 
     @PostMapping(value = "/add")
-    Result add(UserDO userToSave) {
+    Result add(User userToSave) {
         Result result = loginService.register(userToSave);
         return result;
     }
 
     @PostMapping(value = "/update")
     Result update(UserVO userToUpdate) {
-        UserDO user = userRepository.findById(userToUpdate.getId()).orElse(null);
+        User user = userRepository.findById(userToUpdate.getId()).orElse(null);
         if (user != null) {
             BeanUtils.copyProperties(userToUpdate, user);
             userRepository.save(user);

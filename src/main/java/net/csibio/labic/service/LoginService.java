@@ -3,7 +3,7 @@ package net.csibio.labic.service;
 import cn.dev33.satoken.stp.StpUtil;
 import net.csibio.labic.constants.LoginType;
 import net.csibio.labic.domain.Result;
-import net.csibio.labic.domain.db.UserDO;
+import net.csibio.labic.domain.db.User;
 import net.csibio.labic.domain.vo.LoginVO;
 import net.csibio.labic.enums.ResultCode;
 import net.csibio.labic.repository.UserRepository;
@@ -32,7 +32,7 @@ public class LoginService {
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public Result login(LoginVO login) {
-        UserDO user = null;
+        User user = null;
         if (login.getLoginType().equals(LoginType.Account)){
             user = userRepository.findByUsername(login.getUsername());
             if (user == null) {
@@ -59,7 +59,7 @@ public class LoginService {
         return Result.OK(StpUtil.getTokenInfo());
     }
 
-    public Result register(UserDO userToSave) {
+    public Result register(User userToSave) {
         if (userToSave.getUsername().length() > 25 || userToSave.getPassword().length() > 25) {
             return Result.Error(ResultCode.USERNAME_OR_PASSWORD_LENGTH_MUST_LESS_THAN_25);
         }
@@ -67,8 +67,8 @@ public class LoginService {
         String salt = generateSalt(6);
         userToSave.setSalt(salt);
         userToSave.setPassword(passwordEncoder.encode(userToSave.getPassword() + userToSave.getSalt()));
-        
-        UserDO user = userRepository.save(userToSave);
+
+        User user = userRepository.save(userToSave);
         return Result.OK(user);
     }
 
