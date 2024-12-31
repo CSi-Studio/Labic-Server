@@ -23,9 +23,9 @@ public class UserVO extends BaseDO {
 
     String sex;
 
-    String enName;
+    String name;
 
-    String cnName;
+    String alias;
 
     String email;
 
@@ -43,7 +43,7 @@ public class UserVO extends BaseDO {
 
     String avatar;
 
-    String role;
+    List<String> roles;
 
     String jobTitle;
 

@@ -13,6 +13,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.env.Environment;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -23,9 +24,9 @@ import java.net.UnknownHostException;
 @EnableAsync
 @EnableCaching
 @EnableScheduling
+@EnableMongoAuditing
 @EnableAspectJAutoProxy
 @Slf4j
-//@ComponentScan(basePackages = {"cn.dev33.satoken"})
 public class LabicApplication {
 
     public static void main(String[] args) throws UnknownHostException {

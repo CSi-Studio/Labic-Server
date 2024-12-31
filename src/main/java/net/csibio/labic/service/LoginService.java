@@ -67,6 +67,7 @@ public class LoginService {
         String salt = generateSalt(6);
         userToSave.setSalt(salt);
         userToSave.setPassword(passwordEncoder.encode(userToSave.getPassword() + userToSave.getSalt()));
+        
         UserDO user = userRepository.save(userToSave);
         return Result.OK(user);
     }

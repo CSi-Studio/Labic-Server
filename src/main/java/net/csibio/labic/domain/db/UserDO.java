@@ -7,8 +7,8 @@ import net.csibio.labic.domain.BaseDO;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.redis.core.index.Indexed;
 
 import java.util.Date;
 import java.util.List;
@@ -28,7 +28,7 @@ public class UserDO extends BaseDO {
     /**
      * 用户名
      */
-    @Indexed
+    @Indexed(unique = true)
     String username;
 
     /**
@@ -131,7 +131,7 @@ public class UserDO extends BaseDO {
     /**
      * 角色
      */
-    String role;
+    List<String> roles;
 
     /**
      * 职称

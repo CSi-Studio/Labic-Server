@@ -12,6 +12,8 @@ import net.csibio.labic.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+
 @RestController
 @RequestMapping("/login")
 public class LoginController {
@@ -63,7 +65,7 @@ public class LoginController {
         user.setUsername("admin");
         user.setName("admin");
         user.setPassword("admin");
-        user.setRole(Role.Admin);
+        user.setRoles(Collections.singletonList(Role.Admin));
         loginService.register(user);
         return Result.OK();
     }
