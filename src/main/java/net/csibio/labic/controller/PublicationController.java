@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,6 +32,12 @@ public class PublicationController {
     public Result addFromBib(@RequestParam(value = "content", required = false) String content) throws ParseException {
         List<Publication> pubList= PublicationUtil.parse(content);
         publicationRepository.saveAll(pubList);
+        return Result.OK();
+    }
+
+    @GetMapping(value = "/remove")
+    Result remove(@RequestParam(name = "ids") List<String> ids) {
+        publicationRepository.deleteAllById(ids);
         return Result.OK();
     }
 }

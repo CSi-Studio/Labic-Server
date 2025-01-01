@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -36,6 +36,12 @@ public class UserController {
     Result add(User userToSave) {
         Result result = loginService.register(userToSave);
         return result;
+    }
+
+    @GetMapping(value = "/remove")
+    Result remove(@RequestParam(name = "ids") List<String> ids) {
+        userRepository.deleteAllById(ids);
+        return Result.OK();
     }
 
     @PostMapping(value = "/update")

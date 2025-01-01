@@ -41,6 +41,9 @@ public class Publication extends BaseDO {
     @Indexed
     String publisher;
 
+    String abstractText;
+    String issn;
+
     String month;
     String volume;
     String number;
@@ -51,7 +54,7 @@ public class Publication extends BaseDO {
     String editor;
     String eprint;
     String howPublished;
-    String orginazation;
+    String organization;
     String institution;
     String annote;
     String school;
