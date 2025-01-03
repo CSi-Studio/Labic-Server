@@ -35,10 +35,10 @@ public class Conference extends BaseDO {
     String address;
 
     //会议开始时间
-    String startDate;
+    Date startDate;
 
     //会议结束时间
-    String endDate;
+    Date endDate;
 
     @CreatedDate
     Date createDate;
@@ -48,10 +48,11 @@ public class Conference extends BaseDO {
 
     public ExampleMatcher buildMatcher() {
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withMatcher("journal", match -> match.contains().ignoreCase()) // name 模糊匹配，忽略大小写
+                .withMatcher("name", match -> match.contains().ignoreCase()) // name 模糊匹配，忽略大小写
                 .withMatcher("title", match -> match.contains().ignoreCase()) // name 模糊匹配，忽略大小写// name 模糊匹配，忽略大小写
-                .withMatcher("author", match -> match.contains().ignoreCase()) // name 模糊匹配，忽略大小写// name 模糊匹配，忽略大小写
-                .withMatcher("doi", match -> match.contains().ignoreCase()) // name 模糊匹配，忽略大小写// name 模糊匹配，忽略大小写
+                .withMatcher("address", match -> match.contains().ignoreCase()) // name 模糊匹配，忽略大小写// name 模糊匹配，忽略大小写
+                .withMatcher("level", match -> match.exact())
+                .withMatcher("sponsor", match -> match.exact())
                 .withMatcher("type", match -> match.exact())
                 ;
         return matcher;
