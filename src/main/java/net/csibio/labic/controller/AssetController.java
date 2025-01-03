@@ -1,8 +1,9 @@
 package net.csibio.labic.controller;
 
 import net.csibio.labic.domain.Result;
+import net.csibio.labic.domain.db.Asset;
 import net.csibio.labic.domain.db.Publication;
-import net.csibio.labic.domain.db.User;
+import net.csibio.labic.repository.AssetRepository;
 import net.csibio.labic.repository.PublicationRepository;
 import net.csibio.labic.utils.PublicationUtil;
 import org.jbibtex.ParseException;
@@ -16,30 +17,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/publication")
-public class PublicationController {
+@RequestMapping("/asset")
+public class AssetController {
 
     @Autowired
-    PublicationRepository publicationRepository;
+    AssetRepository assetRepository;
 
     @RequestMapping(value = "/list")
-    Result list(Publication query, int current, int pageSize) {
+    Result list(Asset query, int current, int pageSize) {
         Pageable pageable = PageRequest.of(current - 1, pageSize);
-        Example<Publication> example = Example.of(query, query.buildMatcher());
-        Page<Publication> pageableList = publicationRepository.findAll(example, pageable);
+        Example<Asset> example = Example.of(query, query.buildMatcher());
+        Page<Asset> pageableList = assetRepository.findAll(example, pageable);
         return Result.OK(pageableList.getContent(), pageableList.getNumber(), pageableList.getTotalPages());
     }
 
-    @PostMapping("/addFromBib")
-    public Result addFromBib(@RequestParam(value = "content", required = false) String content) throws ParseException {
-        List<Publication> pubList= PublicationUtil.parse(content);
-        publicationRepository.saveAll(pubList);
+    @PostMapping("/add")
+    public Result add(Asset asset) {
+        assetRepository.save(asset);
         return Result.OK();
     }
 
     @GetMapping(value = "/remove")
     Result remove(@RequestParam(name = "ids") List<String> ids) {
-        publicationRepository.deleteAllById(ids);
+        assetRepository.deleteAllById(ids);
         return Result.OK();
     }
 }

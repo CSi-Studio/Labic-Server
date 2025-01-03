@@ -23,8 +23,6 @@ public class SaTokenConfigure implements WebMvcConfigurer {
                 .addExclude("/login/login")
                 .addExclude("/login/init")
                 .setAuth(obj -> {
-                    System.out.println(SaHolder.getRequest().getUrl());
-                    System.out.println("登录状态:" + StpUtil.isLogin());
                     if (!StpUtil.isLogin()) {
                         String back = SaFoxUtil.joinParam(SaHolder.getRequest().getUrl(), SpringMVCUtil.getRequest().getQueryString());
                         SaHolder.getResponse().redirect("/login/login?back=" + SaFoxUtil.encodeUrl(back));

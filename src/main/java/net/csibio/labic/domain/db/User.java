@@ -7,6 +7,7 @@ import net.csibio.labic.domain.BaseDO;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -40,7 +41,7 @@ public class User extends BaseDO {
      * 性别
      */
     @Indexed
-    String sex = Sex.Unset;
+    String sex;
 
     /**
      * 主要称呼
@@ -162,4 +163,16 @@ public class User extends BaseDO {
 
     @LastModifiedDate
     Date lastModifiedDate;
+
+    public ExampleMatcher buildMatcher() {
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("username", match -> match.contains().ignoreCase()) // name 模糊匹配，忽略大小写
+                .withMatcher("name", match -> match.contains().ignoreCase()) // name 模糊匹配，忽略大小写
+                .withMatcher("alias", match -> match.contains().ignoreCase()) // name 模糊匹配，忽略大小写
+                .withMatcher("phone", match -> match.exact())
+                .withMatcher("sex", match -> match.exact())
+                .withMatcher("id", match -> match.exact())
+                ;
+        return matcher;
+    }
 }

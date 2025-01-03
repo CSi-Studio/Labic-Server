@@ -2,13 +2,13 @@ package net.csibio.labic.controller;
 
 import net.csibio.labic.domain.Result;
 import net.csibio.labic.domain.db.User;
-import net.csibio.labic.domain.query.UserQuery;
 import net.csibio.labic.domain.vo.UserVO;
 import net.csibio.labic.enums.ResultCode;
 import net.csibio.labic.repository.UserRepository;
 import net.csibio.labic.service.LoginService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,9 +26,10 @@ public class UserController {
     LoginService loginService;
 
     @RequestMapping(value = "/list")
-    Result list(UserQuery query) {
-        Pageable pageable = PageRequest.of(query.getCurrent() - 1, query.getPageSize());
-        Page<User> userPage = userRepository.findAll(pageable);
+    Result list(User query, int current, int pageSize) {
+        Pageable pageable = PageRequest.of(current - 1, pageSize);
+        Example<User> example = Example.of(query, query.buildMatcher());
+        Page<User> userPage = userRepository.findAll(example, pageable);
         return Result.OK(userPage.getContent(), userPage.getNumber(), userPage.getTotalPages());
     }
 
