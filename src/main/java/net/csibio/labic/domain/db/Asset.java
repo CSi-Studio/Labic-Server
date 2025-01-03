@@ -76,13 +76,13 @@ public class Asset extends BaseDO {
     String retailer;
 
     //财政大类
-    String finClass;
+    String finCategory;
 
     //财政分类
-    String finSubClass;
+    String finClass;
 
     //财政分类名称
-    String finSubClassName;
+    String finClassName;
 
     //验收日期
     Date acceptDate;
