@@ -69,6 +69,8 @@ public class Publication extends BaseDO {
 
     String language;
 
+    String citation;
+
     @CreatedDate
     Date createDate;
 
