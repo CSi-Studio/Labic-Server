@@ -24,7 +24,7 @@ import java.net.UnknownHostException;
 @Slf4j
 public class LabicApplication {
 
-    public static void main(String[] args) throws UnknownHostException {
+    public static void main(String[] args ) throws UnknownHostException {
         ConfigurableApplicationContext application = SpringApplication.run(LabicApplication.class, args);
         final String COLON = ":";
         Environment env = application.getEnvironment();
