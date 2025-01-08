@@ -1,0 +1,18 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/labic
+    redis:
+      database: 0
+      host: 10.90.27.63
+      jedis:
+        pool:
+          min-idle: 0
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          max-wait: -1ms
+        shutdown-timeout: 100ms
+      password: qazsedcft
+      port: 6379

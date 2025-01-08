@@ -9,6 +9,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.gridfs.GridFsOperations;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,18 @@ public class FileServiceImpl implements FileService {
 
     @Autowired
     private GridFsTemplate gridFsTemplate;
+
+    @Autowired
+    private GridFsOperations gridFsOperations;
+
+
+
+    /**
+     * 通过文件 ID 返回文件
+     */
+    public GridFsResource getFile(String fileId) {
+        return gridFsOperations.getResource(gridFsTemplate.findOne(Query.query(Criteria.where("_id").is(fileId))));
+    }
 
     /**
      * 存储文件到MongoDB

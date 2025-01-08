@@ -2,7 +2,6 @@ package net.csibio.labic.domain.db;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import net.csibio.labic.constants.Sex;
 import net.csibio.labic.domain.BaseDO;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -157,6 +156,13 @@ public class User extends BaseDO {
      * 个人简介
      */
     String description;
+
+    // 学历
+    String education;
+    // 毕业院校
+    String school;
+    // 半身照地址
+    String portrait;
 
     @CreatedDate
     Date createDate;

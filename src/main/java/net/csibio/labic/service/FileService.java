@@ -12,4 +12,5 @@ public interface FileService {
     GridFsResource downloadFile(String fileId);
 
     void deleteFile(String fileId);
+    GridFsResource getFile(String fileId);
 }

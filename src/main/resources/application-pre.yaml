@@ -1,0 +1,17 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://10.88.4.186:27017/labic
+    redis:
+      database: 0
+      host: 10.88.4.186
+      jedis:
+        pool:
+          min-idle: 0
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          max-wait: -1ms
+        shutdown-timeout: 100ms
+      port: 6379

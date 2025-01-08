@@ -22,6 +22,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
                 .addInclude("/**")
                 .addExclude("/login/login")
                 .addExclude("/login/init")
+                .addExclude("/files/one/**")
                 .setAuth(obj -> {
                     if (!StpUtil.isLogin()) {
                         String back = SaFoxUtil.joinParam(SaHolder.getRequest().getUrl(), SpringMVCUtil.getRequest().getQueryString());
